@@ -24,6 +24,9 @@ AAchromaticaCharacter::AAchromaticaCharacter()
 
 	FollowCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCameraComponent"));
 	FollowCameraComponent->SetupAttachment(SpringArmComponent);
+
+	AuraSystem = CreateDefaultSubobject<UAchromaticaAuraSystem>(TEXT("AuraSystemComponent"));
+	AuraSystem->SetCharacterReference(this);
 	
 }
 

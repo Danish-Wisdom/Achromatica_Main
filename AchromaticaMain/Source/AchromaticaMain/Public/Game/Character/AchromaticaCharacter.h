@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "Components/AchromaticaAuraSystem.h"
 #include "AchromaticaCharacter.generated.h"
 
 class UInputAction;
@@ -117,6 +118,8 @@ private:
 	TObjectPtr<UMaterialInstance> AuraTwoMaterial;
 
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Values|Settings|Components", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UAchromaticaAuraSystem> AuraSystem;
 public:
 
 	/* --- Getters --- */
