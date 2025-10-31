@@ -4,8 +4,10 @@
 #include "Game/Character/Components/AchromaticaAuraSystem.h"
 
 #include "Game/Character/AchromaticaCharacter.h"
-#include "NiagaraFunctionLibrary.h"
 
+
+#define LOG(x) UE_LOG(LogTemp, Warning, TEXT(x))
+#define VALID(x) if(IsValid(x))
 
 // Sets default values for this component's properties
 UAchromaticaAuraSystem::UAchromaticaAuraSystem()
@@ -27,8 +29,9 @@ void UAchromaticaAuraSystem::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	NiagaraComponent->SetAsset(AuraOneNiagaraSystem);
-	NiagaraComponent->Activate();
+	NiagaraComponent->Deactivate();
+	
+	
 }
 
 void UAchromaticaAuraSystem::SetCharacterReference(AAchromaticaCharacter* Character)
@@ -43,26 +46,20 @@ void UAchromaticaAuraSystem::SetCharacterReference(AAchromaticaCharacter* Charac
 	}
 }
 
-void UAchromaticaAuraSystem::ActivateAura(const int AuraIndex) const
+void UAchromaticaAuraSystem::ActivateAura(EAuraType AuraType) const
 {
-	switch (AuraIndex)
-	{
-		case 0:
-			CharacterMesh->SetOverlayMaterial(AuraOneMaterial);
-			NiagaraComponent->SetAsset(AuraOneNiagaraSystem);
-			NiagaraComponent->Activate();
-			break;
-		case 1:
-			CharacterMesh->SetOverlayMaterial(AuraTwoMaterial);
-			NiagaraComponent->SetAsset(AuraTwoNiagaraSystem);
-			NiagaraComponent->Activate();
-			break;
-		default:
-			CharacterMesh->SetOverlayMaterial(nullptr);
-			NiagaraComponent->SetAsset(nullptr);
-			NiagaraComponent->Deactivate();
-			break;
-	}
+	/*if(AuraDataTable)
+	{ 
+		FName RowName = "Aura_Fire";
+		FAuraDataTableRow* Row = AuraDataTable->FindRow<FAuraDataTableRow>(RowName, TEXT(""));
+		if (AuraDataTable)
+		{
+			VALID(CharacterMesh)
+			{
+				CharacterMesh->SetOverlayMaterial(AuraDataTable->FindRow<EAuraType>())
+			}
+		}
+	}*/
 }
 
 

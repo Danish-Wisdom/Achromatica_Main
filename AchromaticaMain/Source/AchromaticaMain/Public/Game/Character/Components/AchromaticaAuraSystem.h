@@ -3,12 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "Data/Enums/EAuraType.h"
 #include "Components/ActorComponent.h"
 #include "NiagaraSystem.h"
 #include "Materials/MaterialInstance.h"
 #include "NiagaraComponent.h"
 
 #include "AchromaticaAuraSystem.generated.h"
+
 
 
 class AAchromaticaCharacter;
@@ -27,16 +30,16 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura One|Overlay", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura One", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UMaterialInstance> AuraOneMaterial;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura One|Particles", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura Ones", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UNiagaraSystem> AuraOneNiagaraSystem;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura Two|Overlay", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura Two", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UMaterialInstance> AuraTwoMaterial;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura Two|Particles", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura Two", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UNiagaraSystem> AuraTwoNiagaraSystem;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "_Custom Values|References|Character", meta = (AllowPrivateAccess = "true"))
@@ -47,13 +50,20 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "_Custom Values|References|Niagara", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UNiagaraComponent> NiagaraComponent;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|References|Data", meta = (AllowPrivateAccess = "true"))
+	//TObjectPtr<FAuraDataTableRow> AuraDataTable;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura One", meta = (AllowPrivateAccess = "true"))
+	TEnumAsByte<EAuraType> AuraOneType = EAuraType::None;
+
 	
 public:
 	
 	void SetCharacterReference(AAchromaticaCharacter* Character);
 
 	UFUNCTION(BlueprintCallable)
-	void ActivateAura(const int AuraIndex) const;
+	void ActivateAura(EAuraType AuraType) const;
 	
 
 };
