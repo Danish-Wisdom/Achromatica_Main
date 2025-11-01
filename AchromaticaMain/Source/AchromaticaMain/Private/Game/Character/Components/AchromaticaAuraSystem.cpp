@@ -46,20 +46,31 @@ void UAchromaticaAuraSystem::SetCharacterReference(AAchromaticaCharacter* Charac
 	}
 }
 
-void UAchromaticaAuraSystem::ActivateAura(EAuraType AuraType) const
+void UAchromaticaAuraSystem::ActivateAura(const EAuraType AuraType) const
 {
-	/*if(AuraDataTable)
-	{ 
-		FName RowName = "Aura_Fire";
-		FAuraDataTableRow* Row = AuraDataTable->FindRow<FAuraDataTableRow>(RowName, TEXT(""));
-		if (AuraDataTable)
+	if(AuraDataTable)
+	{
+		if (const FAuraDataTableRow* RowData = AuraDataTable->FindRowByAuraType(AuraType))
 		{
 			VALID(CharacterMesh)
 			{
-				CharacterMesh->SetOverlayMaterial(AuraDataTable->FindRow<EAuraType>())
+				CharacterMesh->SetOverlayMaterial(RowData->AuraMaterial);
+			}
+			VALID(NiagaraComponent)
+			{
+				NiagaraComponent->SetAsset(RowData->AuraNiagaraSystem);
+				NiagaraComponent->Activate();
 			}
 		}
-	}*/
+		else
+		{
+			LOG("No Aura Data Found for the Specified Aura Type");
+		}
+	}
+	else
+	{
+		LOG("No Aura Data Table Assigned");
+	}
 }
 
 

@@ -11,7 +11,12 @@
 			"AdditionalDependencies": [
 				"Engine"
 			]
-		}
+		},
+        {
+            "Name": "AchromaticaMainEditor",
+            "Type": "Editor",
+            "LoadingPhase": "Default"
+        }
 	],
 	"Plugins": [
 		{

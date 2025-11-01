@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 
-#include "Data/Enums/EAuraType.h"
+#include "AchromaticaMain/Private/Data/Enums/EAuraType.h"
 #include "NiagaraSystem.h"
 #include "Materials/MaterialInstance.h"
 
@@ -22,6 +23,9 @@ struct FAuraDataTableRow : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Values")
 	TEnumAsByte<EAuraType> AuraType;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Values")
+	FGameplayTag AuraTag;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom Values")
 	FName AuraName;
 	

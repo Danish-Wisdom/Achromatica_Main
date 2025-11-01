@@ -3,10 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Data/Enums/EAuraType.h"
 #include "Engine/DataTable.h"
-#include  "Data/Structs/FAuraDataTableRow.h"
-#include "Data/Structs/FAuraDataTableRowHandle.h"
+#include "AchromaticaMain/Private/Data/Structs/FAuraDataTableRow.h"
 
 
 #include "AuraDataTable.generated.h"
@@ -22,14 +20,20 @@ class ACHROMATICAMAIN_API UAuraDataTable : public UDataTable
 public:
 
 	UAuraDataTable();
-
-	UFUNCTION(BlueprintCallable, Category = "Custom Values|DataTable")
-	void GetAuraDataByType(EAuraType AuraType, FAuraDataTableRowHandle& OutHandle) const;
-
 	virtual void PostLoad() override;
+	virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;  
 
-protected:
-	TMap<EAuraType, uint8*> AuraTypeToRowMap;
+
+	const FAuraDataTableRow* FindRowByAuraType(const EAuraType AuraType) const;
 
 	
+	UFUNCTION(BlueprintCallable, Category = "_Custom Values")
+	bool FindByAuraType(EAuraType AuraType, FAuraDataTableRow& OutRow) const;
+	
+protected:
+	TMap<EAuraType, FAuraDataTableRow*> AuraTypeRowMap;
+
+	void BuildAuraTypeMap();
+
+	//UFUNCTION(BlueprintCallable, Category = "Custom Values|DataTable")
 };

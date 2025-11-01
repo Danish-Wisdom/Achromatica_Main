@@ -9,6 +9,7 @@
 #include "NiagaraSystem.h"
 #include "Materials/MaterialInstance.h"
 #include "NiagaraComponent.h"
+#include  "Data/Tables/AuraDataTable.h"
 
 #include "AchromaticaAuraSystem.generated.h"
 
@@ -51,8 +52,8 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "_Custom Values|References|Niagara", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UNiagaraComponent> NiagaraComponent;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|References|Data", meta = (AllowPrivateAccess = "true"))
-	//TObjectPtr<FAuraDataTableRow> AuraDataTable;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|References|Data", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UAuraDataTable> AuraDataTable;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "_Custom Values|Aura One", meta = (AllowPrivateAccess = "true"))
 	TEnumAsByte<EAuraType> AuraOneType = EAuraType::None;
