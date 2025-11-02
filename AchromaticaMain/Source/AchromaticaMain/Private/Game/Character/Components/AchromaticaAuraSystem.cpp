@@ -4,10 +4,9 @@
 #include "Game/Character/Components/AchromaticaAuraSystem.h"
 
 #include "Game/Character/AchromaticaCharacter.h"
+#include "AchromaticaMain/Private/ToolsUtilities/AchromaticaMacros.h"
 
 
-#define LOG(x) UE_LOG(LogTemp, Warning, TEXT(x))
-#define VALID(x) if(IsValid(x))
 
 // Sets default values for this component's properties
 UAchromaticaAuraSystem::UAchromaticaAuraSystem()

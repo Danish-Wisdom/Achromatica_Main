@@ -25,15 +25,21 @@ public:
 
 
 	const FAuraDataTableRow* FindRowByAuraType(const EAuraType AuraType) const;
+	const FAuraDataTableRow* FindRowByAuraTag(const FGameplayTag AuraTag) const;
 
 	
 	UFUNCTION(BlueprintCallable, Category = "_Custom Values")
 	bool FindByAuraType(EAuraType AuraType, FAuraDataTableRow& OutRow) const;
+
+	UFUNCTION(BlueprintCallable, Category = "_Custom Values")
+	bool FindByAuraTag(FGameplayTag AuraTag, FAuraDataTableRow& OutRow) const;
 	
 protected:
 	TMap<EAuraType, FAuraDataTableRow*> AuraTypeRowMap;
+	TMap<FGameplayTag, FAuraDataTableRow*> AuraTagRowMap;
 
 	void BuildAuraTypeMap();
+	void BuildAuraTagRowMap();
 
 	//UFUNCTION(BlueprintCallable, Category = "Custom Values|DataTable")
 };

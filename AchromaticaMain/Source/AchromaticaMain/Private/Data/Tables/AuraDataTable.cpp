@@ -8,6 +8,8 @@
 UAuraDataTable::UAuraDataTable()
 {
 	RowStruct = FAuraDataTableRow::StaticStruct();
+
+	
 }
 
 
@@ -18,6 +20,7 @@ void UAuraDataTable::PostLoad()
 	Super::PostLoad();
 
 	BuildAuraTypeMap();
+	BuildAuraTagRowMap();
 }
 
 #if WITH_EDITOR
@@ -25,7 +28,7 @@ void UAuraDataTable::PostEditChangeProperty(struct FPropertyChangedEvent& Proper
 {
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 
-	//BuildAuraTypeMap();
+	//           BuildAuraTypeMap();
 }
 #endif
 
@@ -42,6 +45,21 @@ void UAuraDataTable::BuildAuraTypeMap()
 	}
 }
 
+void UAuraDataTable::BuildAuraTagRowMap()
+{
+	AuraTagRowMap.Empty();
+
+	for (const auto& RowPair : GetRowMap())
+	{
+		if (FAuraDataTableRow* RowData = reinterpret_cast<FAuraDataTableRow*>(RowPair.Value))
+		{
+			AuraTagRowMap.Add(RowData->AuraTag, RowData);
+		}
+	}
+
+	
+}
+
 const FAuraDataTableRow* UAuraDataTable::FindRowByAuraType(const EAuraType AuraType) const
 {
 	if (FAuraDataTableRow* const* FoundRowPtr = AuraTypeRowMap.Find(AuraType))
@@ -54,17 +72,17 @@ const FAuraDataTableRow* UAuraDataTable::FindRowByAuraType(const EAuraType AuraT
 	
 }
 
+const FAuraDataTableRow* UAuraDataTable::FindRowByAuraTag(const FGameplayTag AuraTag) const
+{
+	if (FAuraDataTableRow* const* FoundRowPtr = AuraTagRowMap.Find(AuraTag))
+	{
+		return *FoundRowPtr;
+	}
+	return nullptr;
+}
+
 bool UAuraDataTable::FindByAuraType(EAuraType AuraType, FAuraDataTableRow& OutRow) const
 {
-	
-	// if (FAuraDataTableRow* const* RowPtr = AuraTypeRowMap.Find(AuraType))
-	// {
-	// 		if (*RowPtr)
-	// 		{
-	// 			OutRow = **RowPtr;
-	// 			return true;
-	// 		}
-	// }
 
 	if (const FAuraDataTableRow* Ptr = FindRowByAuraType(AuraType))
 	{
@@ -76,5 +94,19 @@ bool UAuraDataTable::FindByAuraType(EAuraType AuraType, FAuraDataTableRow& OutRo
 	}
 	
 
+	return false;
+}
+
+bool UAuraDataTable::FindByAuraTag(FGameplayTag AuraTag, FAuraDataTableRow& OutRow) const
+{
+	if (const FAuraDataTableRow* Ptr = FindRowByAuraTag(AuraTag))
+	{
+		if (Ptr)
+		{
+			OutRow = *Ptr;
+			return true;
+		}
+	}
+	
 	return false;
 }
