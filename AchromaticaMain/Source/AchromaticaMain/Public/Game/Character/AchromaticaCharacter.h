@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
-#include "Components/AchromaticaAuraSystem.h"
+
 #include "AchromaticaCharacter.generated.h"
 
 class UInputAction;
@@ -24,6 +24,9 @@ class ACHROMATICAMAIN_API AAchromaticaCharacter : public ACharacter
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Values|Camera", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UCameraComponent> FollowCameraComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Values|Components", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UAchromaticaAuraComponent> AuraComponent;
 	
 public:
 	// Sets default values for this character's properties
@@ -122,8 +125,6 @@ private:
 	TObjectPtr<UMaterialInstance> AuraTwoMaterial;
 
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Custom Values|Settings|Components", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UAchromaticaAuraSystem> AuraSystem;
 public:
 
 	/* --- Getters --- */

@@ -6,6 +6,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Game/Character/Components/AchromaticaAuraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -25,9 +26,7 @@ AAchromaticaCharacter::AAchromaticaCharacter()
 	FollowCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCameraComponent"));
 	FollowCameraComponent->SetupAttachment(SpringArmComponent);
 
-	AuraSystem = CreateDefaultSubobject<UAchromaticaAuraSystem>(TEXT("AuraSystemComponent"));
-	AuraSystem->SetCharacterReference(this);
-	
+	AuraComponent = CreateDefaultSubobject<UAchromaticaAuraComponent>(TEXT("AuraComponent"));
 }
 
 // Called when the game starts or when spawned
